@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="Viewport" content="width=device-width, initial-scale=1.0">-->
+    <title><?= $title ?></title>
+    <style>
+        h1 {
+            font-size: 48px;
+            margin: 0 0 10px 0;
+            padding: 0 20px;
+            color: white;
+            background: linear-gradient(to right, #aaa, #fff);
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="row">
+        <h1><?= $title ?></h1>
+    </header>
+    <div class="row">
+        <pre><?php print_r($data); ?></pre>
+    </div>
+    <div class="row">
+        <table>
+            <?= $this->Form->create( //create([モデル],[連想配列]);
+                null,
+                [
+                    'type' => 'post', //method属性 
+                    'url' => [ //送信用アドレス
+                        'controller' => 'Hello',
+                        'action' => 'index'
+                    ]
+                ]
+            ) ?>
+
+            <tr>
+                <th>name</th>
+                <td>
+                    <?= $this->Form->text('Form1.name') ?>
+                    <!-- テキストというメソッド(フォーム名.コントローラにつける名前) -->
+                </td>
+            </tr>
+            <tr>
+                <th>mail</th>
+                <td>
+                    <?= $this->Form->text('Form1.mail') ?>
+                </td>
+            </tr>
+            <tr>
+                <th>age</th>
+                <td>
+                    <?= $this->Form->text('Form1.age') ?>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <?= $this->Form->submit('送信') ?>
+                </td>
+            </tr>
+            <?= $this->Form->end() ?>
+        </table>
+    </div>
+</body>
+
+</html>
+
+<!-- ここから
+hellovontrollerのindexのバックアップ
+public function index()
+	{
+		$this->ViewBuilder()->autoLayout(false);
+
+		$this->set('title', 'Hello!');
+
+		if ($this->request->isPost()) { //Postがtureならフォームからの送信、falseならURLなどからのアクセス。
+			$this->set('data', $this->request->data['Form1']);
+		} else {
+			$this->set('data', []); //Post出ない時の処理として、dataに空のデータを入れる。
+		}
+	} //アクションといい、アプリにアクセスしたときに、具体的に実行される処理。いくらでもかいて良い。こいつを呼び出すには、localhost/mycakeapp/Hello/indexで呼び出せる。 -->
