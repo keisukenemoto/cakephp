@@ -11,11 +11,10 @@ class PeopleController extends AppController
         if ($this->request->isPost()) {
             //post送信時の処理
             $find = $this->request->data['People']['find']; //index.ctpで$this->Form->text('People.find')とPeople.findと名前を指定してるので、data['People']['find']というところに保管されます。？？？
-            // $condition = ['limit' => 3, 'page' => $find]; //['name' => $find]という連想配列を用意して、conditionのあたいにして、name値がfindであるかをチェックします。$findがフィールどで入力した値。
             $data = $this->People->find('me', ['me' => $find]); //これで入力フィールドとおなじものが検索されます。
         } else {
             //get送信時の処理
-            $data = $this->People->find('byAge');
+            $data = $this->People->find('byAge')->contain(['Messages']);
         }
         $this->set('data', $data);
     }
