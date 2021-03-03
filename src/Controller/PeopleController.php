@@ -6,16 +6,22 @@ use App\Controller\AppController;
 
 class PeopleController extends AppController
 {
+    public $paginate = [
+        'finder' => 'ByAge',
+        'limit' => 5,
+        'contain' => ['Messages']
+    ];
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+
     public function index()
     {
-        if ($this->request->isPost()) {
-            //post送信時の処理
-            $find = $this->request->data['People']['find']; //index.ctpで$this->Form->text('People.find')とPeople.findと名前を指定してるので、data['People']['find']というところに保管されます。？？？
-            $data = $this->People->find('me', ['me' => $find]); //これで入力フィールドとおなじものが検索されます。
-        } else {
-            //get送信時の処理
-            $data = $this->People->find('byAge')->contain(['Messages']);
-        }
+        // if ($this->request->isPost()) {}
+        $data = $this->paginate($this->People); //これで入力フィールドとおなじものが検索されます。
         $this->set('data', $data);
     }
 

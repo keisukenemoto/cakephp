@@ -14,3 +14,7 @@
 <ul>
     <?= $this->Html->nestedList(["first line", 'second line', 'third line' => ['one', 'two', 'three']]) ?>
 </ul>
+<?= $this->Url->build(['controller' => 'Hello', 'action' => 'show', '?' => ['id' => 'taro', 'password' => 'yamada123']]); ?><br>
+<?= $this->Url->build(['controller' => 'Hello', 'action' => 'show', '_ext' => 'png', 'sample']) ?><br>
+<?= $this->Text->autoLinkUrls('http://google.com') ?><br>
+<?= $this->Text->autoLinkEmails('muscut1457@gmail.com') ?><br>
